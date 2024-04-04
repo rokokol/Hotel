@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HotelForm));
             splitContainer1 = new SplitContainer();
+            timeLabel = new Label();
             outCheckBox = new CheckBox();
             bookCheckBox = new CheckBox();
             freeCheckBox = new CheckBox();
@@ -39,8 +43,16 @@
             searchBox = new TextBox();
             guestsLabel = new Label();
             dataGrid = new DataGridView();
-            userGrid = new DataGridView();
-            NumberLabel = new Label();
+            outcomeDate = new Label();
+            outcomeDateLabel = new Label();
+            statusValueLabel = new Label();
+            incomeDate = new Label();
+            incomeDateLabel = new Label();
+            nameLabel = new Label();
+            statusTypeLabel = new Label();
+            imageBox = new PictureBox();
+            numberLabel = new Label();
+            timer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -50,7 +62,7 @@
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)userGrid).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)imageBox).BeginInit();
             SuspendLayout();
             // 
             // splitContainer1
@@ -63,6 +75,7 @@
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.BackColor = Color.PowderBlue;
+            splitContainer1.Panel1.Controls.Add(timeLabel);
             splitContainer1.Panel1.Controls.Add(outCheckBox);
             splitContainer1.Panel1.Controls.Add(bookCheckBox);
             splitContainer1.Panel1.Controls.Add(freeCheckBox);
@@ -77,6 +90,16 @@
             splitContainer1.Size = new Size(800, 450);
             splitContainer1.SplitterDistance = 204;
             splitContainer1.TabIndex = 0;
+            // 
+            // timeLabel
+            // 
+            timeLabel.AutoSize = true;
+            timeLabel.Font = new Font("Sitka Text", 10F);
+            timeLabel.Location = new Point(12, 36);
+            timeLabel.Name = "timeLabel";
+            timeLabel.Size = new Size(89, 20);
+            timeLabel.TabIndex = 5;
+            timeLabel.Text = "00 : 00 : 00";
             // 
             // outCheckBox
             // 
@@ -127,7 +150,7 @@
             StatusLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             StatusLabel.AutoSize = true;
             StatusLabel.Font = new Font("Sitka Small", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            StatusLabel.Location = new Point(60, 9);
+            StatusLabel.Location = new Point(53, 9);
             StatusLabel.Name = "StatusLabel";
             StatusLabel.Size = new Size(69, 24);
             StatusLabel.TabIndex = 0;
@@ -150,8 +173,15 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.BackColor = Color.LightBlue;
-            splitContainer2.Panel2.Controls.Add(userGrid);
-            splitContainer2.Panel2.Controls.Add(NumberLabel);
+            splitContainer2.Panel2.Controls.Add(outcomeDate);
+            splitContainer2.Panel2.Controls.Add(outcomeDateLabel);
+            splitContainer2.Panel2.Controls.Add(statusValueLabel);
+            splitContainer2.Panel2.Controls.Add(incomeDate);
+            splitContainer2.Panel2.Controls.Add(incomeDateLabel);
+            splitContainer2.Panel2.Controls.Add(nameLabel);
+            splitContainer2.Panel2.Controls.Add(statusTypeLabel);
+            splitContainer2.Panel2.Controls.Add(imageBox);
+            splitContainer2.Panel2.Controls.Add(numberLabel);
             splitContainer2.Panel2MinSize = 230;
             splitContainer2.Size = new Size(592, 450);
             splitContainer2.SplitterDistance = 350;
@@ -186,6 +216,23 @@
             dataGrid.AllowUserToResizeColumns = false;
             dataGrid.AllowUserToResizeRows = false;
             dataGrid.BackgroundColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Sitka Text", 12F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGrid.ColumnHeadersHeight = 30;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Sitka Text", 10F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGrid.DefaultCellStyle = dataGridViewCellStyle2;
             dataGrid.Dock = DockStyle.Bottom;
             dataGrid.Location = new Point(0, 70);
             dataGrid.MinimumSize = new Size(200, 10);
@@ -198,32 +245,117 @@
             dataGrid.TabIndex = 0;
             dataGrid.CellContentClick += dataGrid_CellContentClick;
             // 
-            // userGrid
+            // outcomeDate
             // 
-            userGrid.AllowUserToAddRows = false;
-            userGrid.AllowUserToDeleteRows = false;
-            userGrid.AllowUserToResizeColumns = false;
-            userGrid.AllowUserToResizeRows = false;
-            userGrid.BackgroundColor = SystemColors.GradientActiveCaption;
-            userGrid.Dock = DockStyle.Bottom;
-            userGrid.Location = new Point(0, 70);
-            userGrid.MinimumSize = new Size(200, 10);
-            userGrid.Name = "userGrid";
-            userGrid.ReadOnly = true;
-            userGrid.Size = new Size(238, 380);
-            userGrid.TabIndex = 2;
+            outcomeDate.AutoSize = true;
+            outcomeDate.BackColor = SystemColors.GradientActiveCaption;
+            outcomeDate.BorderStyle = BorderStyle.FixedSingle;
+            outcomeDate.Font = new Font("Sitka Text", 10F);
+            outcomeDate.Location = new Point(13, 399);
+            outcomeDate.Name = "outcomeDate";
+            outcomeDate.Size = new Size(2, 22);
+            outcomeDate.TabIndex = 9;
             // 
-            // NumberLabel
+            // outcomeDateLabel
             // 
-            NumberLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            NumberLabel.AutoSize = true;
-            NumberLabel.Font = new Font("Sitka Small", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            NumberLabel.Location = new Point(89, 9);
-            NumberLabel.Name = "NumberLabel";
-            NumberLabel.Size = new Size(68, 24);
-            NumberLabel.TabIndex = 1;
-            NumberLabel.Text = "Номер";
-            NumberLabel.TextAlign = ContentAlignment.MiddleCenter;
+            outcomeDateLabel.AutoSize = true;
+            outcomeDateLabel.BackColor = SystemColors.GradientActiveCaption;
+            outcomeDateLabel.BorderStyle = BorderStyle.FixedSingle;
+            outcomeDateLabel.Font = new Font("Sitka Text", 10F);
+            outcomeDateLabel.Location = new Point(13, 368);
+            outcomeDateLabel.Name = "outcomeDateLabel";
+            outcomeDateLabel.Size = new Size(94, 22);
+            outcomeDateLabel.TabIndex = 8;
+            outcomeDateLabel.Text = "Дата заезда";
+            // 
+            // statusValueLabel
+            // 
+            statusValueLabel.AutoSize = true;
+            statusValueLabel.BackColor = SystemColors.GradientActiveCaption;
+            statusValueLabel.BorderStyle = BorderStyle.FixedSingle;
+            statusValueLabel.Font = new Font("Sitka Text", 10F);
+            statusValueLabel.Location = new Point(90, 196);
+            statusValueLabel.Name = "statusValueLabel";
+            statusValueLabel.Size = new Size(57, 22);
+            statusValueLabel.TabIndex = 7;
+            statusValueLabel.Text = "Статус";
+            // 
+            // incomeDate
+            // 
+            incomeDate.AutoSize = true;
+            incomeDate.BackColor = SystemColors.GradientActiveCaption;
+            incomeDate.BorderStyle = BorderStyle.FixedSingle;
+            incomeDate.Font = new Font("Sitka Text", 10F);
+            incomeDate.Location = new Point(13, 324);
+            incomeDate.Name = "incomeDate";
+            incomeDate.Size = new Size(2, 22);
+            incomeDate.TabIndex = 6;
+            // 
+            // incomeDateLabel
+            // 
+            incomeDateLabel.AutoSize = true;
+            incomeDateLabel.BackColor = SystemColors.GradientActiveCaption;
+            incomeDateLabel.BorderStyle = BorderStyle.FixedSingle;
+            incomeDateLabel.Font = new Font("Sitka Text", 10F);
+            incomeDateLabel.Location = new Point(13, 293);
+            incomeDateLabel.Name = "incomeDateLabel";
+            incomeDateLabel.Size = new Size(94, 22);
+            incomeDateLabel.TabIndex = 5;
+            incomeDateLabel.Text = "Дата заезда";
+            // 
+            // nameLabel
+            // 
+            nameLabel.AutoSize = true;
+            nameLabel.BackColor = SystemColors.GradientActiveCaption;
+            nameLabel.BorderStyle = BorderStyle.FixedSingle;
+            nameLabel.Font = new Font("Sitka Text", 10F);
+            nameLabel.Location = new Point(13, 245);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new Size(42, 22);
+            nameLabel.TabIndex = 4;
+            nameLabel.Text = "ФИО";
+            // 
+            // statusTypeLabel
+            // 
+            statusTypeLabel.AutoSize = true;
+            statusTypeLabel.BackColor = SystemColors.GradientActiveCaption;
+            statusTypeLabel.BorderStyle = BorderStyle.FixedSingle;
+            statusTypeLabel.Font = new Font("Sitka Text", 10F);
+            statusTypeLabel.Location = new Point(13, 196);
+            statusTypeLabel.Name = "statusTypeLabel";
+            statusTypeLabel.Size = new Size(57, 22);
+            statusTypeLabel.TabIndex = 3;
+            statusTypeLabel.Text = "Статус";
+            // 
+            // imageBox
+            // 
+            imageBox.BackColor = SystemColors.GradientActiveCaption;
+            imageBox.BorderStyle = BorderStyle.FixedSingle;
+            imageBox.Image = (Image)resources.GetObject("imageBox.Image");
+            imageBox.Location = new Point(68, 70);
+            imageBox.Name = "imageBox";
+            imageBox.Size = new Size(100, 94);
+            imageBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            imageBox.TabIndex = 2;
+            imageBox.TabStop = false;
+            // 
+            // numberLabel
+            // 
+            numberLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            numberLabel.AutoSize = true;
+            numberLabel.Font = new Font("Sitka Small", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            numberLabel.Location = new Point(75, 9);
+            numberLabel.Name = "numberLabel";
+            numberLabel.Size = new Size(93, 24);
+            numberLabel.TabIndex = 1;
+            numberLabel.Text = "Номер №";
+            numberLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // timer
+            // 
+            timer.Enabled = true;
+            timer.Interval = 1000;
+            timer.Tick += timer_Tick;
             // 
             // HotelForm
             // 
@@ -249,7 +381,7 @@
             ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
             splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGrid).EndInit();
-            ((System.ComponentModel.ISupportInitialize)userGrid).EndInit();
+            ((System.ComponentModel.ISupportInitialize)imageBox).EndInit();
             ResumeLayout(false);
         }
 
@@ -259,13 +391,22 @@
         private SplitContainer splitContainer2;
         private DataGridView dataGrid;
         private Label StatusLabel;
-        private Label NumberLabel;
+        private Label numberLabel;
         private Label guestsLabel;
         private CheckBox outCheckBox;
         private CheckBox bookCheckBox;
         private CheckBox freeCheckBox;
         private CheckBox resCheckBox;
         private TextBox searchBox;
-        private DataGridView userGrid;
+        private Label timeLabel;
+        private System.Windows.Forms.Timer timer;
+        private PictureBox imageBox;
+        private Label incomeDateLabel;
+        private Label nameLabel;
+        private Label statusTypeLabel;
+        private Label incomeDate;
+        private Label statusValueLabel;
+        private Label outcomeDate;
+        private Label outcomeDateLabel;
     }
 }

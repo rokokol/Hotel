@@ -1,6 +1,6 @@
 ﻿namespace Hotel.Classes
 {
-    internal class IdNamePair
+    public class IdNamePair
     {
         public int Id { get; set; }
         public string Name { get; set; }
